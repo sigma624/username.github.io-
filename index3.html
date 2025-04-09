@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Яндекс 2025 — поиск по интернету</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --yandex-red: #fc3f1d;
+            --yandex-dark: #000;
+            --yandex-light: #fff;
+            --yandex-gray: #f2f2f2;
+            --yandex-blue: #3366ff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'YS Text', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--yandex-light);
+            color: var(--yandex-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Хедер */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 32px;
+            margin-right: 8px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+        
+        .nav-links a {
+            color: var(--yandex-dark);
+            text-decoration: none;
+            font-size: 15px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--yandex-red);
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: var(--yandex-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        /* Основной контент */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        
+        .search-container {
+            width: 100%;
+            max-width: 752px;
+            margin-bottom: 32px;
+        }
+        
+        .search-form {
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 16px 24px;
+            font-size: 18px;
+            border: 2px solid var(--yandex-red);
+            border-radius: 50px;
+            outline: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-input:focus {
+            box-shadow: 0 2px 12px rgba(252, 63, 29, 0.2);
+        }
+        
+        .search-buttons {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 8px;
+        }
+        
+        .search-button {
+            background-color: var(--yandex-red);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 8px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .voice-search {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            font-size: 18px;
+        }
+        
+        /* Виджеты сервисов */
+        .services {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 16px;
+            width: 100%;
+            max-width: 752px;
+            margin-bottom: 32px;
+        }
+        
+        .service {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--yandex-dark);
+            padding: 12px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        
+        .service:hover {
+            background-color: var(--yandex-gray);
+        }
+        
+        .service-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 8px;
+            background-color: var(--yandex-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .service-name {
+            font-size: 13px;
+            text-align: center;
+        }
+        
+        /* Новости и информация */
+        .news-container {
+            width: 100%;
+            max-width: 752px;
+            display: flex;
+            gap: 24px;
+        }
+        
+        .news-column {
+            flex: 1;
+        }
+        
+        .news-card {
+            background-color: var(--yandex-gray);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .news-title {
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: var(--yandex-dark);
+        }
+        
+        .news-item {
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        
+        .news-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        /* AI ассистент */
+        .ai-assistant {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: var(--yandex-red);
+            color: white;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+        }
+        
+        /* Футер */
+        .footer {
+            padding: 16px 24px;
+            background-color: var(--yandex-gray);
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .services {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .news-container {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .services {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Хедер -->
+    <header class="header">
+        <div class="logo">
+            <img src="https://yastatic.net/s3/home-static/_/x/Q/x5WHC1QyQjQ6n6EvhS1U6-w.svg" alt="Яндекс">
+        </div>
+        
+        <nav class="nav-links">
+            <a href="#">Видео</a>
+            <a href="#">Картинки</a>
+            <a href="#">Новости</a>
+            <a href="#">Карты</a>
+            <a href="#">Маркет</a>
+            <a href="#">Переводчик</a>
+            <a href="#">Музыка</a>
+        </nav>
+        
+        <div class="user-menu">
+            <button class="avatar">
+                <i class="fas fa-user"></i>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Основной контент -->
+    <main class="main">
+        <div class="search-container">
+            <form class="search-form" action="https://yandex.ru/search/" method="get">
+                <input class="search-input" type="text" name="text" placeholder="Найдётся всё" aria-label="Поиск в интернете">
+                <div class="search-buttons">
+                    <button type="button" class="voice-search" aria-label="Голосовой поиск">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <button type="submit" class="search-button">
+                        <i class="fas fa-search"></i>
+                        Найти
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Виджеты сервисов -->
+        <div class="services">
+            <a href="https://mail.yandex.ru" class="service">
+                <div class="service-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <span class="service-name">Почта</span>
+            </a>
+            
+            <a href="https://disk.yandex.ru" class="service">
+                <div class="service-icon">
+                    <i class="fas fa-cloud"></i>
+                </div>
+                <span class="service-name">Диск</span>
+            </a>
+            
+            <a href="https://calendar.yandex.ru" class="service">
+                <div class="service-icon">
+                    <i class="fas fa-calendar"></i>
+                </div>
+                <span class="service-name">Календарь</span>
+            </a>
+            
+            <a href="https://music.yandex.ru" class="service">
+                <div class="service-icon">
+                    <i class="fas fa-music"></i>
+                </div>
+                <span class="service-name">Музыка</span>
+            </a>
+            
+            <a href="https://yandex.ru/pogoda" class="service">
+                <div class="service-icon">
+                    <i class="fas fa-cloud-sun"></i>
+                </div>
+                <span class="service-name">Погода</span>
+            </a>
+            
+            <a href="https://market.yandex.ru" class="service">
+                <div class="service-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <span class="service-name">Маркет</span>
+            </a>
+            
+            <a href="https://translate.yandex.ru" class="service">
+                <div class="service-icon">
+                    <i class="fas fa-language"></i>
+                </div>
+                <span class="service-name">Переводчик</span>
+            </a>
+            
+            <a href="https://eda.yandex.ru" class="service">
+                <div class="service-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <span class="service-name">Еда</span>
+            </a>
+            
+            <a href="https://taxi.yandex.ru" class="service">
+                <div class="service-icon">
+                    <i class="fas fa-taxi"></i>
+                </div>
+                <span class="service-name">Такси</span>
+            </a>
+            
+            <a href="https://travel.yandex.ru" class="service">
+                <div class="service-icon">
+                    <i class="fas fa-plane"></i>
+                </div>
+                <span class="service-name">Путешествия</span>
+            </a>
+            
+            <a href="https://afisha.yandex.ru" class="service">
+                <div class="service-icon">
+                    <i class="fas fa-ticket-alt"></i>
+                </div>
+                <span class="service-name">Афиша</span>
+            </a>
+            
+            <a href="https://plus.yandex.ru" class="service">
+                <div class="service-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <span class="service-name">Плюс</span>
+            </a>
+        </div>
+        
+        <!-- Новости и информация -->
+        <div class="news-container">
+            <div class="news-column">
+                <div class="news-card">
+                    <h3 class="news-title">Новости</h3>
+                    <div class="news-item">
+                        <a href="#">В России представили новый электромобиль</a>
+                    </div>
+                    <div class="news-item">
+                        <a href="#">Курс доллара опустился ниже 90 рублей</a>
+                    </div>
+                    <div class="news-item">
+                        <a href="#">Учёные совершили прорыв в квантовых вычислениях</a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <h3 class="news-title">Погода</h3>
+                    <div class="news-item">
+                        <span>Москва: +18°C, ясно</span>
+                    </div>
+                    <div class="news-item">
+                        <span>Санкт-Петербург: +15°C, облачно</span>
+                    </div>
+                    <div class="news-item">
+                        <span>Сочи: +22°C, солнечно</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="news-column">
+                <div class="news-card">
+                    <h3 class="news-title">Курс валют</h3>
+                    <div class="news-item">
+                        <span>USD: 89.75 ₽ (-0.5)</span>
+                    </div>
+                    <div class="news-item">
+                        <span>EUR: 97.20 ₽ (-0.3)</span>
+                    </div>
+                    <div class="news-item">
+                        <span>CNY: 12.45 ₽ (-0.1)</span>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <h3 class="news-title">Пробки</h3>
+                    <div class="news-item">
+                        <span>Москва: 3 балла</span>
+                    </div>
+                    <div class="news-item">
+                        <span>Санкт-Петербург: 5 баллов</span>
+                    </div>
+                    <div class="news-item">
+                        <span>Казань: 2 балла</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- AI ассистент -->
+    <div class="ai-assistant">
+        <i class="fas fa-robot"></i>
+    </div>
+    
+    <!-- Футер -->
+    <footer class="footer">
+        <div>© 2025 Яндекс</div>
+    </footer>
+    
+    <script>
+        // Голосовой поиск
+        document.querySelector('.voice-search').addEventListener('click', function() {
+            alert('Голосовой поиск активирован. Скажите ваш запрос.');
+            // Здесь будет код для активации Web Speech API
+        });
+        
+        // AI ассистент
+        document.querySelector('.ai-assistant').addEventListener('click', function() {
+            alert('Привет! Я ваш AI ассистент Яндекс. Чем могу помочь?');
+            // Здесь будет код для открытия чат-интерфейса
+        });
+        
+        // Анимация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            const services = document.querySelectorAll('.service');
+            services.forEach((service, index) => {
+                setTimeout(() => {
+                    service.style.opacity = '1';
+                    service.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
